@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.testRunner.TestRunner
+-------------------------------------------------------------------------------
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 71.567 s - in com.testRunner.TestRunner
