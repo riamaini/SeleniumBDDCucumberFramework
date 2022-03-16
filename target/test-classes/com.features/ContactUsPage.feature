@@ -7,6 +7,6 @@ Feature: Contact Us Feature
     Then it shows a successful message "Your message has been successfully sent to our team."
 
     Examples:
-      |SheetName|RowNumber|
-      |ContactUs|0|
-      |ContactUs|1|
+      | SheetName | RowNumber |
+      | ContactUs | 0         |
+      | ContactUs | 1         |

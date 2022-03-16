@@ -3,9 +3,11 @@ package com.stepDefinitions;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import com.factory.DriverFactory;
 import com.pageObjects.ContactUsPage;
+import com.utils.ConfigReader;
 import com.utils.ExcelReader;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.testng.Assert;
@@ -17,18 +19,26 @@ import io.cucumber.java.en.When;
 
 public class ContactUsPageSteps {
 
+    public ConfigReader configReader;
+    public Properties prop;
     private ContactUsPage contactUsPage = new ContactUsPage(DriverFactory.getDriver());
     ExcelReader reader = new ExcelReader();
 
+    public ContactUsPageSteps(){
+        configReader = new ConfigReader();
+        prop = configReader.init_prop();
+    }
+
     @Given("user navigates to contact us page")
     public void user_navigates_to_contact_us_page() {
-        DriverFactory.getDriver().get("http://automationpractice.com/index.php?controller=contact");
+        String contactUrl = prop.getProperty("contactUrl");
+        DriverFactory.getDriver().get(contactUrl);
     }
 
     @When("user fills the form from given sheetname {string} and rownumber {int}")
     public void user_fills_the_form_from_given_sheetname_and_rownumber(String sheetName, Integer rowNumber) throws InvalidFormatException, IOException {
 
-        List<Map<String,String>> testData =
+        List<Map<String, String>> testData =
                 reader.getData("src/test/resources/TestData/TestData.xlsx", sheetName);
 
         String heading = testData.get(rowNumber).get("Subject Heading");

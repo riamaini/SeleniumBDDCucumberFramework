@@ -2,19 +2,31 @@ package com.stepDefinitions;
 
 import com.factory.DriverFactory;
 import com.pageObjects.LoginPage;
+import com.utils.ConfigReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.Properties;
+
+
 public class LoginPageSteps {
 
+    public ConfigReader configReader;
+    public Properties prop;
     private LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
     private static String actualTitle;
 
+    public LoginPageSteps(){
+        configReader = new ConfigReader();
+        prop = configReader.init_prop();
+    }
+
     @Given("user is on login page")
     public void user_is_on_login_page() {
-       DriverFactory.getDriver().get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+        String appUrl = prop.getProperty("appUrl");
+        DriverFactory.getDriver().get(appUrl);
     }
 
     @When("user gets the title of the page")

@@ -7,10 +7,14 @@ import java.util.Properties;
 public class DBUtil {
 
     private static Connection connObj = null;
-
-    Properties prop;
-
     String url, username, password;
+    public ConfigReader configReader;
+    public Properties prop;
+
+    public DBUtil(){
+        configReader = new ConfigReader();
+        prop = configReader.init_prop();
+    }
 
     public Connection getDBConnection() {
 
