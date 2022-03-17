@@ -42,9 +42,9 @@ public class CommonUtils {
         }
     }
 
-    public WebElement getElement(By selector) {
+    public WebElement getElement(WebElement selector) {
         try {
-            return driver.findElement(selector);
+            return selector;
         } catch (Exception e) {
             System.out.println(String.format("Element %s does not exist - proceeding", selector));
         }
@@ -52,7 +52,7 @@ public class CommonUtils {
     }
 
 
-    public void sendKeys(By selector, String value) {
+    public void sendKeys(WebElement selector, String value) {
         WebElement element = getElement(selector);
         clearField(element);
         try {
@@ -70,7 +70,7 @@ public class CommonUtils {
         }
     }
 
-    public void click(By selector) {
+    public void click(WebElement selector) {
         WebElement element = getElement(selector);
         waitForElementToBeClickable(selector);
         try {
@@ -80,7 +80,7 @@ public class CommonUtils {
         }
     }
 
-    private void waitForElementToBeClickable(By selector) {
+    private void waitForElementToBeClickable(WebElement selector) {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(selector));
         } catch (Exception e) {
