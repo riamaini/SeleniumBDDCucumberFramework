@@ -1,5 +1,7 @@
 package com.utils;
 
+import org.testng.Assert;
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -10,6 +12,7 @@ public class DBUtil {
     String url, username, password;
     public ConfigReader configReader;
     public Properties prop;
+    CommonUtils commonUtils = new CommonUtils();
 
     public DBUtil(){
         configReader = new ConfigReader();
@@ -65,6 +68,35 @@ public class DBUtil {
             return null;
         }
 
+    }
+
+    public String getQuery(String fileName, String queryKey, String... queryParameters) {
+
+        String matchText = "<arguments>";
+        String[] arrQueryString = null;
+        try {
+
+            //1. read JSON to fetch meta query string
+            String queryVal = commonUtils.readJSON(fileName, queryKey);
+
+            //2. construct query
+            if(queryVal.contains(matchText)) {
+
+                arrQueryString = queryVal.split(matchText);
+
+                for(int cnt = 0; cnt < queryParameters.length; cnt++) {
+                    arrQueryString[cnt] = arrQueryString[cnt] + queryParameters[cnt];
+                }
+
+                queryVal = String.join("", arrQueryString);
+            }
+
+            return queryVal;
+
+        } catch(Exception e) {
+            Assert.fail("Exception in getQuery method: " + e.getMessage());
+            return null;
+        }
 
     }
 
