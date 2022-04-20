@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.TestException;
@@ -151,6 +152,44 @@ public class CommonUtils {
             Assert.fail("Exception in getDBRecords method: " + e.getMessage());
             return null;
         }
+    }
+
+    public void verifyElementDisplayed(WebElement ele, String byName) {
+
+        try {
+            waitForElementToBeClickable(ele);
+            Assert.assertTrue(ele.isDisplayed());
+        } catch (Exception e) {
+            Assert.fail("Exception in verifyElementDisplayed method: " + e.getMessage());
+        }
+
+    }
+
+    public void select(WebElement ele, String option) {
+
+        try {
+
+            Select select = new Select (ele);
+            select.selectByVisibleText(option);
+
+        } catch (Exception e) {
+            Assert.fail("Exception in select method: " + e.getMessage());
+        }
+
+    }
+
+    public void select(WebElement ele, int index) {
+
+        try {
+
+            Select select = new Select (ele);
+            select.selectByIndex(index);
+
+        } catch (Exception e) {
+            Assert.fail("Exception in select method: " + e.getMessage());
+
+        }
+
     }
 
 }
